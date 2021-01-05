@@ -1871,6 +1871,12 @@ HRESULT TextBuffer::Reflow(TextBuffer& oldBuffer,
         const ROW& row = oldBuffer.GetRowByOffset(iOldRow);
         const CharRow& charRow = row.GetCharRow();
         short iRight = gsl::narrow_cast<short>(charRow.MeasureRight());
+        if (iRight == 0 && !row.WasWrapForced())
+        {
+            // don't beef it if iRight=0 on iterator
+            newBuffer.NewlineCursor();
+            continue;
+        }
 
         // There is a special case here. If the row has a "wrap"
         // flag on it, but the right isn't equal to the width (one
