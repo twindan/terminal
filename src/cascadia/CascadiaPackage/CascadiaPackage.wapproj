@@ -135,14 +135,14 @@
   <!-- This target removes the FrameworkSdkReferences from before the AppX package targets manifest generation happens.
        This is part of the generic machinery that applies to every AppX. -->
   <Target Name="_OpenConsoleStripAllDependenciesFromPackageFirstManifest" BeforeTargets="_GenerateCurrentProjectAppxManifest">
-    <ItemGroup Condition="'$(WindowsTerminalOfficialBuild)'=='true'">
+    <ItemGroup Condition="'$(XxxWindowsTerminalOfficialBuild)'=='true'">
       <FrameworkSdkReference Remove="@(FrameworkSdkReference)" />
     </ItemGroup>
   </Target>
 
   <!-- This target removes the FrameworkSdkPackages from before the *desktop bridge* manifest generation happens. -->
   <Target Name="_OpenConsoleStripAllDependenciesFromPackageSecondManifest" BeforeTargets="_GenerateDesktopBridgeAppxManifest" DependsOnTargets="_ResolveVCLibDependencies">
-    <ItemGroup Condition="'$(WindowsTerminalOfficialBuild)'=='true'">
+    <ItemGroup Condition="'$(XxxWindowsTerminalOfficialBuild)'=='true'">
       <FrameworkSdkPackage Remove="@(FrameworkSdkPackage)" />
     </ItemGroup>
   </Target>
