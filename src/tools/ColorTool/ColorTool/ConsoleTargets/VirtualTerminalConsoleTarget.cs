@@ -55,6 +55,21 @@ namespace ColorTool.ConsoleTargets
                 string s = $"\x1b]4;{vtIndex};rgb:{color.R:X}/{color.G:X}/{color.B:X}\x7";
                 Console.Write(s);
             }
+
+            if (colorScheme.ConsoleAttributes.Foreground != null)
+            {
+                Color color = ColorUtility.UIntToColor(colorScheme.ConsoleAttributes.Foreground.Value);
+                string s = $"\x1b]10;rgb:{color.R:X}/{color.G:X}/{color.B:X}\x7";
+                Console.Write(s);
+            }
+
+            if (colorScheme.ConsoleAttributes.Background != null)
+            {
+                Color color = ColorUtility.UIntToColor(colorScheme.ConsoleAttributes.Background.Value);
+                string s = $"\x1b]11;rgb:{color.R:X}/{color.G:X}/{color.B:X}\x7";
+                Console.Write(s);
+            }
+
             if (!quietMode)
             {
                 ColorTable.PrintTableWithVt();

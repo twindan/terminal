@@ -37,15 +37,7 @@ namespace ColorTool
                 this.ConsoleAttributes.PopupForeground
             );
 
-        public Color this[int index] => UIntToColor(ColorTable[index]);
-
-        private static Color UIntToColor(uint color)
-        {
-            byte r = (byte)(color >> 0);
-            byte g = (byte)(color >> 8);
-            byte b = (byte)(color >> 16);
-            return Color.FromArgb(r, g, b);
-        }
+        public Color this[int index] => ColorUtility.UIntToColor(ColorTable[index]);
 
         private ushort? CalculateBackgroundForegroundAttributes(uint? background, uint? foreground)
         {
