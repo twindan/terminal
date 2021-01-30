@@ -283,3 +283,6 @@ MSG*.bin
 profiles.json
 *.metaproj
 *.swp
+
+# code rush
+List.xml
