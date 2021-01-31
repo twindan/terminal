@@ -47,7 +47,9 @@ namespace ColorTool.SchemeParsers
 
         public override ColorScheme ParseScheme(string schemeName, bool reportErrors = false)
         {
-            XmlDocument xmlDoc = LoadXmlScheme(schemeName); // Create an XML document object
+            string filename = FindScheme(schemeName, out schemeName);
+            if (filename == null) return null;
+            XmlDocument xmlDoc = LoadXmlScheme(filename); // Create an XML document object
             if (xmlDoc == null) return null;
             XmlNode root = xmlDoc.GetElementsByTagName("dict")[0];
             XmlNodeList children = root.ChildNodes;
@@ -122,28 +124,24 @@ namespace ColorTool.SchemeParsers
             return true;
         }
 
-        private XmlDocument LoadXmlScheme(string schemeName) =>
-            SchemeManager
-            .GetSearchPaths(schemeName, FileExtension)
-            .Select(path =>
-                {
-                    try
-                    {
-                        var text = File.ReadAllText(path);
-                        var xmlDoc = new XmlDocument();
-                        xmlDoc.LoadXml(text);
-                        return xmlDoc;
-                    }
-                    catch (XmlException) { }
-                    catch (IOException) { }
-                    catch (UnauthorizedAccessException) { }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine($"Unexpected Exception: {e}.\nBailing...");
-                        throw;
-                    }
-                    return null;
-                })
-            .FirstOrDefault(x => x != null);
+        private XmlDocument LoadXmlScheme(string path)
+        {
+            try
+            {
+                var text = File.ReadAllText(path);
+                var xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(text);
+                return xmlDoc;
+            }
+            catch (XmlException) { }
+            catch (IOException) { }
+            catch (UnauthorizedAccessException) { }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Unexpected Exception: {e}.\nBailing...");
+                throw;
+            }
+            return null;
+        }
     }
 }

@@ -40,7 +40,9 @@ namespace ColorTool.SchemeParsers
 
         public override ColorScheme ParseScheme(string schemeName, bool reportErrors = false)
         {
-            XmlDocument xmlDoc = LoadJsonFile(schemeName);
+            var fullPath = FindScheme(schemeName, out schemeName);
+            if (fullPath == null) return null;
+            XmlDocument xmlDoc = LoadJsonFile(fullPath);
             if (xmlDoc == null) return null;
 
             try

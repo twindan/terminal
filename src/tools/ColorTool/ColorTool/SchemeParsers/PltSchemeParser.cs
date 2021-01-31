@@ -31,7 +31,7 @@ namespace ColorTool.SchemeParsers
 
         public override ColorScheme ParseScheme(string schemeName, bool reportErrors = false)
         {
-            var filename = FindPltScheme(schemeName);
+            var filename = FindScheme(schemeName, out schemeName);
             if (filename == null) return null;
 
             using (var fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read))

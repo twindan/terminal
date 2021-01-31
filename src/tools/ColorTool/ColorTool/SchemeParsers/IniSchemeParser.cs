@@ -47,7 +47,7 @@ namespace ColorTool.SchemeParsers
         {
             bool success = true;
 
-            string filename = FindIniScheme(schemeName);
+            string filename = FindScheme(schemeName, out schemeName);
             if (filename == null) return null;
 
             string[] tableStrings = new string[ColorTableSize];
@@ -180,11 +180,6 @@ namespace ColorTool.SchemeParsers
             {
                 return ParseRgb(arg);
             }
-        }
-
-        private string FindIniScheme(string schemeName)
-        {
-            return SchemeManager.GetSearchPaths(schemeName, FileExtension).FirstOrDefault(File.Exists);
         }
     }
 }

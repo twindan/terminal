@@ -90,6 +90,19 @@ namespace ColorTool
 
         public static ColorScheme GetScheme(string schemeName, bool reportErrors = false)
         {
+            IEnumerable<ISchemeParser> parsers = GetParsers();
+
+            // if the user provided an extension, remove it and filter it
+            var extension = Path.GetExtension(schemeName);
+            if (!string.IsNullOrEmpty(extension))
+            {
+                // filter it to valid parsers
+                parsers = parsers.Where(test => string.Compare(test.FileExtension, extension, true) == 0);
+
+                // the extension is always at the end, so just remove it
+                schemeName = schemeName.Substring(0, schemeName.Length - extension.Length);
+            }
+
             return GetParsers()
                 .Select(parser => parser.ParseScheme(schemeName, reportErrors))
                 .FirstOrDefault(x => x != null);

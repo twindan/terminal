@@ -1,7 +1,8 @@
 {
   "profiles": {
     "ColorTool": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Bin\\palettes\\dos.plt"
     }
   }
 }

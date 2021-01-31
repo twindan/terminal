@@ -20,6 +20,23 @@ namespace ColorTool.SchemeParsers
 
         protected string ExtractSchemeName(string schemeFileName) =>
             Path.ChangeExtension(schemeFileName, null);
+
+        protected string FindScheme(string schemeName, out string realName)
+        {
+            // get the real name
+            realName = Path.GetFileName(schemeName);
+
+            // if we have a full path, then try that
+            if (Path.IsPathRooted(schemeName))
+            {
+                var testFile = string.Concat(schemeName, FileExtension);
+                return File.Exists(testFile) ? testFile : null;
+            }
+            else
+            {
+                return SchemeManager.GetSearchPaths(schemeName, FileExtension).FirstOrDefault(File.Exists);
+            }
+        }
     }
 }
 
