@@ -68,10 +68,5 @@ namespace ColorTool.SchemeParsers
                 return new ColorScheme(schemeName, colorTable, attributes);
             }
         }
-
-        private string FindPltScheme(string schemeName)
-        {
-            return SchemeManager.GetSearchPaths(schemeName, FileExtension).FirstOrDefault(File.Exists);
-        }
     }
 }
