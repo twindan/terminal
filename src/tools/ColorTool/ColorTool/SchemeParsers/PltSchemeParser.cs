@@ -62,7 +62,6 @@ namespace ColorTool.SchemeParsers
                 }
 
                 // set the default attributes
-                Console.WriteLine("attributes: {0}/{1}", options.BackgroundColorIndex, options.ForegroundColorIndex);
                 var attributes = new ConsoleAttributes(colorTable[options.BackgroundColorIndex],
                                                        colorTable[options.ForegroundColorIndex],
                                                        null, null);
