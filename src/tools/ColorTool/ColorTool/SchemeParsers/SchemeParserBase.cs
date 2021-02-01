@@ -13,7 +13,7 @@ namespace ColorTool.SchemeParsers
 
         public abstract string Name { get; }
 
-        public abstract ColorScheme ParseScheme(string schemeName, bool reportErrors = false);
+        public abstract ColorScheme ParseScheme(string schemeName, SchemeParseOptions options, bool reportErrors = false);
 
         // Common elements and helpers
         public abstract string FileExtension { get; }

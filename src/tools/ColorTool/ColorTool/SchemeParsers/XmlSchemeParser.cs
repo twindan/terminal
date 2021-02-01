@@ -45,7 +45,7 @@ namespace ColorTool.SchemeParsers
 
         public override string Name { get; } = "iTerm Parser";
 
-        public override ColorScheme ParseScheme(string schemeName, bool reportErrors = false)
+        public override ColorScheme ParseScheme(string schemeName, SchemeParseOptions options, bool reportErrors = false)
         {
             string filename = FindScheme(schemeName, out schemeName);
             if (filename == null) return null;

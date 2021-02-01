@@ -19,6 +19,7 @@ namespace ColorTool
         private static bool setProperties = true;
         private static bool setUnixStyle = false;
         private static bool setTerminalStyle = false;
+        private static SchemeParsers.SchemeParseOptions schemeParserOptions = new SchemeParsers.SchemeParseOptions();
 
         public static void Main(string[] args)
         {
@@ -27,9 +28,12 @@ namespace ColorTool
                 Usage();
                 return;
             }
-            for (int i = 0; i < args.Length; i++)
+
+            string schemeName = null;
+            int i = 0;
+            while(i < args.Length)
             {
-                string arg = args[i];
+                string arg = args[i++];
                 switch (arg)
                 {
                     case "-?":
@@ -46,9 +50,9 @@ namespace ColorTool
                         return;
                     case "-o":
                     case "--output":
-                        if (i + 1 < args.Length)
+                        if (i < args.Length)
                         {
-                            new IniSchemeWriter().ExportCurrentAsIni(args[i + 1]);
+                            new IniSchemeWriter().ExportCurrentAsIni(args[i++]);
                         }
                         else
                         {
@@ -91,14 +95,65 @@ namespace ColorTool
                         setTerminalStyle = true;
                         setProperties    = true;
                         break;
+                    case "-f":
+                    case "--foreground":
+                        if (i < args.Length)
+                        {
+                            schemeParserOptions.ForegroundColorIndex = int.Parse(args[i++]);
+                        }
+                        else
+                        {
+                            OutputUsage();
+                            return;
+                        }
+                        break;
+                    case "-k":
+                    case "--background":
+                        if (i < args.Length)
+                        {
+                            schemeParserOptions.BackgroundColorIndex = int.Parse(args[i++]);
+                        }
+                        else
+                        {
+                            OutputUsage();
+                            return;
+                        }
+                        break;
+                    case "--hex-color":
+                        if (i < args.Length)
+                        {
+                            var color = int.Parse(args[i++], System.Globalization.NumberStyles.HexNumber);
+                            schemeParserOptions.BackgroundColorIndex = (color >> 4) & 0xf;
+                            schemeParserOptions.ForegroundColorIndex = color & 0xf;
+                        }
+                        else
+                        {
+                            OutputUsage();
+                            return;
+                        }
+                        break;
+
                     default:
+                        if (arg.StartsWith("-") || schemeName != null)
+                        {
+                            OutputUsage();
+                            return;
+                        }
+                        else
+                        {
+                            schemeName = arg;
+                        }
                         break;
                 }
             }
 
-            string schemeName = args[args.Length - 1];
+            if (schemeName == null)
+            {
+                OutputUsage();
+                return;
+            }
 
-            ColorScheme colorScheme = SchemeManager.GetScheme(schemeName, reportErrors);
+            ColorScheme colorScheme = SchemeManager.GetScheme(schemeName, schemeParserOptions, reportErrors);
 
             if (colorScheme == null)
             {

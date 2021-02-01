@@ -43,7 +43,7 @@ namespace ColorTool.SchemeParsers
 
         public override string Name { get; } = "INI File Parser";
 
-        public override ColorScheme ParseScheme(string schemeName, bool reportErrors = false)
+        public override ColorScheme ParseScheme(string schemeName, SchemeParseOptions options, bool reportErrors = false)
         {
             bool success = true;
 

@@ -171,15 +171,18 @@ Functions:
 Options:
     You may use these switches before a scheme name.
 
-    -q, --quiet    : Don't print the color table after applying
-    -e, --errors   : Report scheme parsing errors on the console
-    -d, --defaults : Apply the scheme to only the defaults in the registry
-                     By default, the scheme would be applied to the current console instead.
-    -b, --both     : Apply the scheme to both the current console and the defaults.
-                     By default, the scheme would be applied to the current console only.
-    -x, --xterm    : Set the colors using VT sequences. Used for setting the colors in WSL.
-                     Only works in Windows versions &gt;= 17048.
-    -t, --terminal : Output the colors in JSON format for copying into a Windows Terminal settings file.
+    -q, --quiet      : Don't print the color table after applying
+    -e, --errors     : Report scheme parsing errors on the console
+    -d, --defaults   : Apply the scheme to only the defaults in the registry
+                       By default, the scheme would be applied to the current console instead.
+    -b, --both       : Apply the scheme to both the current console and the defaults.
+                       By default, the scheme would be applied to the current console only.
+    -x, --xterm      : Set the colors using VT sequences. Used for setting the colors in WSL.
+                       Only works in Windows versions &gt;= 17048.
+    -t, --terminal   : Output the colors in JSON format for copying into a Windows Terminal settings file.
+    -f, --foreground : Sets the foreground color (for schemes that don't support foreground colors)
+    -k, --background : Sets the background color (for schemes that don't support background colors)
+    --hex-color      : Sets the foreground &amp; backcolor color using a hex color
 
 Available importers:
   {0}</value>

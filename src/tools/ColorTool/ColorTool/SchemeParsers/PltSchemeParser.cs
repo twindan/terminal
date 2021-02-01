@@ -29,7 +29,7 @@ namespace ColorTool.SchemeParsers
             return colorFromFile;
         }
 
-        public override ColorScheme ParseScheme(string schemeName, bool reportErrors = false)
+        public override ColorScheme ParseScheme(string schemeName, SchemeParseOptions options, bool reportErrors = false)
         {
             var filename = FindScheme(schemeName, out schemeName);
             if (filename == null) return null;
@@ -61,8 +61,11 @@ namespace ColorTool.SchemeParsers
                     colorTable[index] = red | (green << 8) | (blue << 16);
                 }
 
-                // use colors 0 & 7 as the "defaults"
-                var attributes = new ConsoleAttributes(colorTable[0], colorTable[7], null, null);
+                // set the default attributes
+                Console.WriteLine("attributes: {0}/{1}", options.BackgroundColorIndex, options.ForegroundColorIndex);
+                var attributes = new ConsoleAttributes(colorTable[options.BackgroundColorIndex],
+                                                       colorTable[options.ForegroundColorIndex],
+                                                       null, null);
 
                 // construct the scheme
                 return new ColorScheme(schemeName, colorTable, attributes);

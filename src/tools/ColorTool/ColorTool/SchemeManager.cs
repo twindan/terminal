@@ -62,7 +62,7 @@ namespace ColorTool
                 string fgText = " gYw ";
                 foreach (string schemeName in Directory.GetFiles(schemeDirectory).Select(Path.GetFileName))
                 {
-                    ColorScheme colorScheme = GetScheme(schemeName, false);
+                    ColorScheme colorScheme = GetScheme(schemeName, new SchemeParseOptions(), false);
                     if (colorScheme != null)
                     {
                         string colors = string.Empty;
@@ -88,7 +88,7 @@ namespace ColorTool
             }
         }
 
-        public static ColorScheme GetScheme(string schemeName, bool reportErrors = false)
+        public static ColorScheme GetScheme(string schemeName, SchemeParseOptions options, bool reportErrors = false)
         {
             IEnumerable<ISchemeParser> parsers = GetParsers();
 
@@ -104,7 +104,7 @@ namespace ColorTool
             }
 
             return GetParsers()
-                .Select(parser => parser.ParseScheme(schemeName, reportErrors))
+                .Select(parser => parser.ParseScheme(schemeName, options, reportErrors))
                 .FirstOrDefault(x => x != null);
         }
 

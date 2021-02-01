@@ -9,6 +9,6 @@ namespace ColorTool.SchemeParsers
     {
         string Name { get; }
         string FileExtension { get; }
-        ColorScheme ParseScheme(string schemeName, bool reportErrors = false);
+        ColorScheme ParseScheme(string schemeName, SchemeParseOptions options, bool reportErrors = false);
     }
 }

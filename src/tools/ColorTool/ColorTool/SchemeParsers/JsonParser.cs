@@ -38,7 +38,7 @@ namespace ColorTool.SchemeParsers
 
         public override string Name { get; } = "concfg Parser";
 
-        public override ColorScheme ParseScheme(string schemeName, bool reportErrors = false)
+        public override ColorScheme ParseScheme(string schemeName, SchemeParseOptions options, bool reportErrors = false)
         {
             var fullPath = FindScheme(schemeName, out schemeName);
             if (fullPath == null) return null;
