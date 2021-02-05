@@ -23,7 +23,8 @@ namespace ColorTool
             //  4. ./schemes/name.ext
             //  5. exe/schemes/name
             //  6. exe/schemes/name.ext
-            //  7. name (as an absolute path)
+            //  7. COLORTOOL_PATHS
+            //  8. name (as an absolute path)
 
             string cwd = "./";
             yield return cwd + schemeName;
@@ -39,6 +40,14 @@ namespace ColorTool
             string exeSchemes = exeDir + "/schemes/";
             yield return exeSchemes + schemeName;
             yield return exeSchemes + filename;
+
+            var colorToolPathsEnv = Environment.GetEnvironmentVariable("COLORTOOL_PATHS");
+            if (!string.IsNullOrEmpty(colorToolPathsEnv))
+            {
+                foreach (var envPath in colorToolPathsEnv.Split(';'))
+                    yield return envPath + "/" + filename;
+            }
+
             yield return schemeName;
         }
 
